@@ -18,6 +18,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.resteasy.utils.TestUtil;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+//import org.jboss.shrinkwrap.api.exporter.ZipExporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -125,7 +126,7 @@ public class GrpcToJakartaRESTTest {
         };
         Message m = translator.translateToJavabuf(coll, type);
         Any any = Any.pack(m);
-        Greet_proto.GeneralEntityMessage.Builder builder = Greet_proto.GeneralEntityMessage.newBuilder();
+        GeneralEntityMessage.Builder builder = GeneralEntityMessage.newBuilder();
         GeneralEntityMessage gem = builder.setAnyField(any).build();
         GeneralReturnMessage response = blockingStub.listString(gem);
         any = response.getAnyField();
@@ -165,7 +166,7 @@ public class GrpcToJakartaRESTTest {
     public void testMapWildcardWildcard() throws Exception {
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         map.put(Integer.valueOf(17), Integer.valueOf(19));
-        GenericType<Map<Object, Object>> type = new GenericType<Map<Object, Object>>() {
+        GenericType<Map<Integer, Integer>> type = new GenericType<Map<Integer, Integer>>() {
         };
         Message m = translator.translateToJavabuf(map, type);
         Any any = Any.pack(m);
@@ -174,7 +175,7 @@ public class GrpcToJakartaRESTTest {
         GeneralReturnMessage response = blockingStub.mapWildWild(gem);
         any = response.getAnyField();
         Message result = Utility.unpack(any, translator);
-        Assert.assertEquals(map, translator.translateFromJavabuf(result));
+        Assert.assertTrue(map.equals(translator.translateFromJavabuf(result)));
     }
 
     //////////////////////////////////////////////////////////

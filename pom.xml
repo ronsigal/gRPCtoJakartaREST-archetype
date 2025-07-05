@@ -15,7 +15,6 @@
     <properties>
         <archetype-packaging.version>3.2.1</archetype-packaging.version>
         <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     </properties>
     <build>
         <extensions>
@@ -42,7 +41,6 @@
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <release>11</release>
                 </configuration>
@@ -50,7 +48,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>${exec-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>build</id>

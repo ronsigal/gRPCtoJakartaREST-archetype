@@ -59,7 +59,6 @@
                     <plugin>
                         <groupId>org.wildfly.plugins</groupId>
                         <artifactId>wildfly-maven-plugin</artifactId>
-                        <version>${wildfly.maven.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>server-provisioning</id>
@@ -117,7 +116,6 @@
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
-            <version>${javax.annotation.version}</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -199,7 +197,15 @@
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency> 
+        <!--dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+        </dependency> 
+        <dependency>
+            <groupId>org.jboss.arquillian.junit5</groupId>
+            <artifactId>arquillian-junit5-core</artifactId>
+        </dependency-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -234,6 +240,11 @@
             <artifactId>wildfly-arquillian-container-managed</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--dependency>
+            <groupId>org.wildfly.common</groupId>
+            <artifactId>wildfly-common</artifactId>
+            <version>1.6.0.Final</version>
+        </dependency-->
     </dependencies>
     <build>
         <extensions>
@@ -260,13 +271,35 @@
             </testResource>
         </testResources>
         <plugins>
+    <!--plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-test-source</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>src/test/java</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin-->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
                         <server.config.dir>${jboss.home}/standalone/configuration</server.config.dir>
                         <redirectTestOutputToFile>false</redirectTestOutputToFile>
+                        <builddir>${project.build.directory}</builddir>
                     </systemPropertyVariables>
+                    <includes>
+                        <include>GrpcToJakartaRESTTest.java</include>
+                    </includes>
                     <argLine>--add-opens java.base/java.lang.reflect=ALL-UNNAMED -Dgrpc.example.version=${grpc.example.version}</argLine>
                 </configuration>
             </plugin>
