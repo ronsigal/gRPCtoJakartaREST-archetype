@@ -75,6 +75,11 @@
         <maven-dependency-plugin.version>3.5.0</maven-dependency-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
+        
+        <!-- for tests -->
+        <shrinkwrap.version>3.3.4</shrinkwrap.version>
+        <arquillian.version>1.9.3.Final</arquillian.version>
+        <junit.version>4.13.2</junit.version>
     </properties>
 
     <dependencies>
@@ -163,6 +168,38 @@
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
             <version>${exec-maven-plugin.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-api-maven</artifactId>
+            <version>${shrinkwrap.version}</version>
+        </dependency>
+         <dependency>
+             <groupId>org.jboss.arquillian.core</groupId>
+             <artifactId>arquillian-core-impl-base</artifactId>
+             <version>${arquillian.version}</version>
+             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-core</artifactId>
+            <version>${arquillian.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-container-test-api</artifactId>
+            <version>${arquillian.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.test</groupId>
+            <artifactId>arquillian-test-impl-base</artifactId>
+            <version>${arquillian.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
         </dependency>
     </dependencies>
     <build>
@@ -294,6 +331,7 @@
                                 <argument>${generate.package}.${generate-prefix}</argument>
                                 <argument>${generate-prefix}</argument>
                                 <argument>${project.basedir}/src/main/proto/${generate-prefix}.proto</argument>
+                                <argument>${project.build.directory}</argument>
                             </arguments>
                             <systemProperties>
                                 <systemProperty>
