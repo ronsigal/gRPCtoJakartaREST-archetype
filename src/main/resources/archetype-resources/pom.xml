@@ -516,7 +516,6 @@
                                 <overlay>
                                     <groupId>${groupId}</groupId>
                                     <artifactId>${artifactId}</artifactId>
-                                    >
                                     <excludes>
                                         <exclude>**/*</exclude>
                                     </excludes>
